@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToyoToys - Product Details</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #FF1744;
+      --secondary-color: #00E676;
+      --accent-color: #FFD600;
+      --tertiary-color: #00B0FF;
+      --dark-color: #212121;
+      --light-color: #FFFFFF
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      overflow-x: hidden
+    }
+
+    .navbar {
+      background-color: var(--light-color);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+      padding: 15px 0;
+      border-bottom: 3px solid var(--accent-color);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: var(--primary-color) !important;
+      text-shadow: 2px 2px 0 var(--accent-color);
+    }
+
+    .navbar-brand img {
+      height: 70px;
+      margin-right: 15px;
+      transition: transform .3s;
+    }
+
+    .navbar-brand:hover img {
+      transform: scale(1.1);
+    }
+
+    .nav-link {
+      font-weight: 600;
+      color: var(--dark-color) !important;
+      margin: 0 10px;
+      transition: all .3s;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color) !important;
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background-color: var(--accent-color);
+      transition: width .3s;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .dropdown-menu {
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+      border: none;
+      margin-top: 10px;
+    }
+
+    .dropdown-item {
+      font-weight: 500;
+      transition: all .3s;
+    }
+
+    .dropdown-item:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .search-input {
+      border-radius: 25px;
+      padding-left: 15px;
+      border: 1px solid #ddd;
+      transition: width .4s ease, opacity .3s ease;
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .search-input.active {
+      width: 200px;
+      opacity: 1;
+      visibility: visible;
+      padding: 5px 15px;
+      margin-right: 10px;
+    }
+
+    .search-icon {
+      font-size: 1.3rem;
+      color: var(--dark-color);
+      cursor: pointer;
+      transition: color .3s, transform .2s;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon:hover {
+      color: var(--primary-color);
+      transform: scale(1.1);
+    }
+
+    .cart-icon {
+      font-size: 1.4rem;
+      color: var(--dark-color);
+      margin-left: 15px;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .add-to-cart-btn {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 25px;
+      font-weight: 700;
+      width: 100%;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 0 #00C853;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #69F0AE;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #00C853;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #00E676;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      transform: translateX(300px);
+      transition: transform 0.3s ease;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .related-product-card {
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .related-product-card:hover {
+      border-color: #FFD600;
+      transform: translateY(-8px);
+    }
+
+    /* Product detail main image fix */
+    #productImage {
+      width: 100%;
+      max-width: 600px;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      display: block;
+      margin: 0 auto;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--tertiary-color) 100%);
+      color: #fff;
+      padding: 60px 0 30px;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, .2);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, .9);
+      text-decoration: none;
+      transition: all .3s;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+      transform: translateX(5px);
+    }
+
+    .social-icons {
+      display: flex;
+      margin-top: 25px;
+    }
+
+    .social-icon {
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: #fff;
+      transition: all .3s;
+      font-size: 1.3rem;
+    }
+
+    .social-icon:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 40px;
+      margin-top: 30px;
+      border-top: 2px solid rgba(255, 255, 255, .2);
+      color: rgba(255, 255, 255, .8);
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- Navbar -->
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="/images/Logo.png" alt="ToyoToys Logo" />ToyoToys
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+
+            <!-- Categories -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Categories</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="category.html?cat=toys">Toys</a></li>
+                <li><a class="dropdown-item" href="category.html?cat=cards">Cards</a></li>
+                <li><a class="dropdown-item" href="category.html?cat=games">Games</a></li>
+                <li><a class="dropdown-item" href="category.html?cat=dolls">Dolls</a></li>
+                <li><a class="dropdown-item" href="category.html?cat=educational">Educational</a></li>
+              </ul>
+            </li>
+
+            <!-- Brands -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="brandDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Brands</a>
+              <ul class="dropdown-menu" aria-labelledby="brandDropdown">
+                <li><a class="dropdown-item" href="category.html?brand=Mattel">Mattel</a></li>
+                <li><a class="dropdown-item" href="category.html?brand=Lego">Lego</a></li>
+                <li><a class="dropdown-item" href="category.html?brand=Hasbro">Hasbro</a></li>
+                <li><a class="dropdown-item" href="category.html?brand=Barbie">Barbie</a></li>
+                <li><a class="dropdown-item" href="category.html?brand=Hot Wheels">Hot Wheels</a></li>
+              </ul>
+            </li>
+
+            <!-- Age -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="ageDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Age</a>
+              <ul class="dropdown-menu" aria-labelledby="ageDropdown">
+                <li><a class="dropdown-item" href="category.html?age=2-4 yrs">2-4 yrs</a></li>
+                <li><a class="dropdown-item" href="category.html?age=5-7 yrs">5-7 yrs</a></li>
+                <li><a class="dropdown-item" href="category.html?age=8-12 yrs">8-12 yrs</a></li>
+                <li><a class="dropdown-item" href="category.html?age=12+ yrs">12+ yrs</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="compare.html">Compare</a>
+            </li>
+
+          </ul>
+
+
+          <!-- Search + Cart -->
+          <div class="d-flex align-items-center ms-3">
+            <div class="search-container me-3">
+              <input type="text" class="form-control search-input" placeholder="Search toys..." id="searchInput" />
+              <i class="fas fa-magnifying-glass search-icon" id="searchToggle" aria-label="Toggle Search"></i>
+            </div>
+            <a class="nav-link position-relative" href="cart.html" aria-label="Shopping Cart">
+              <i class="fas fa-shopping-cart cart-icon"></i>
+              <span class="cart-count" id="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Footer -->
+
+
+
+  <!-- Product Detail Section -->
+  <section class="py-5">
+    <div class="container">
+      <a href="category.html" class="text-danger fw-bold mb-3 d-inline-block"><i class="fas fa-arrow-left"></i> Back to
+        Products</a>
+      <div class="row">
+        <div class="col-md-6">
+          <img id="productImage" src="" alt="" class="w-100 rounded shadow">
+        </div>
+        <div class="col-md-6">
+          <h1 id="productTitle" class="fw-bold text-danger"></h1>
+          <h3 id="productPrice" class="text-success"></h3>
+          <div id="productRating" class="mb-2"></div>
+          <p id="productDescription"></p>
+          <h5>Key Features:</h5>
+          <ul id="productFeatures"></ul>
+
+          <div class="d-flex align-items-center my-3">
+            <button id="decreaseQuantity" class="btn btn-danger">-</button>
+            <input type="number" id="quantity" value="1" min="1" max="10" class="mx-2 text-center" style="width:60px;">
+            <button id="increaseQuantity" class="btn btn-danger">+</button>
+          </div>
+
+          <button class="btn btn-success me-2" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+          <button class="btn btn-warning" id="buyNowBtn"><i class="fas fa-bolt"></i> Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4 text-danger">Related Products</h2>
+      <div class="row" id="relatedProductsContainer"></div>
+    </div>
+  </section>
+
+  >
+
+
+  <footer id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="footer-logo">ToyoToys</div>
+          <p>Your one-stop shop for magical toys that inspire creativity and bring joy to children everywhere.</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Legal</h5>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 ToyoToys. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <!-- Notification -->
+  <div id="toast-container"></div>
+  <!-- Bootstrap Bundle JS (dropdowns, collapse, modal, etc. ke liye zaroori) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(function () {
+      // Product Data (same as your array of 30 items)
+      const products = [
+        {
+          id: 1,
+          name: "Building Blocks Set",
+          price: "$24.99",
+          rating: 4.5,
+          category: "toys",
+          image: "images/card1.jpg",
+          description: "High-quality building blocks...",
+          features: ["100+ pieces", "Multiple shapes", "Compatible", "Storage box", "Ages 3+"]
+        },
+        {
+          id: 2,
+          name: "Remote Control Car",
+          price: "$34.99",
+          rating: 4.7,
+          category: "toys",
+          image: "images/card2.jpg",
+          description: "Fast and fun remote control car...",
+          features: ["Range 100ft", "Rechargeable", "Headlights", "Shock-resistant", "Ages 6+"]
+        },
+        {
+          id: 3,
+          name: "Puzzle Game",
+          price: "$19.99",
+          rating: 4.3,
+          category: "toys",
+          image: "images/card4.webp",
+          description: "Challenging and entertaining puzzle...",
+          features: ["500 pieces", "Vibrant colors", "Durable pieces", "18x24 inches", "Ages 8+"]
+        },
+        {
+          id: 4,
+          name: "Robot Toy",
+          price: "$39.99",
+          rating: 4.8,
+          category: "toys",
+          image: "images/card3.jpg",
+          description: "Interactive robot toy...",
+          features: ["Voice recognition", "Programmable", "LED lights", "Rechargeable", "Ages 5+"]
+        },
+        {
+          id: 5,
+          name: "Toy Train Set",
+          price: "$29.99",
+          rating: 4.6,
+          category: "toys",
+          image: "images/card5.jpg",
+          description: "Classic toy train set...",
+
+          features: ["15 feet track", "Battery loco", "3 cargo cars", "Accessories", "Ages 4+"]
+        },
+
+        {
+          id: 6,
+          name: "Chess Set",
+          price: "$18.99",
+          rating: 4.6,
+          category: "cards",
+          image: "images/card6.jpg",
+          description: "Classic wooden chess set for strategic play...",
+          features: ["32 pieces", "Foldable board", "Portable", "Polished finish", "Ages 6+"]
+        },
+        {
+          id: 7,
+          name: "Ludo Game",
+          price: "$12.99",
+          rating: 4.4,
+          category: "cards",
+          image: "images/card7.jpg",
+          description: "Colorful family board game for endless fun...",
+          features: ["2-4 players", "Dice included", "Foldable board", "Easy rules", "Ages 5+"]
+        },
+        {
+          id: 8,
+          name: "Snakes & Ladders",
+          price: "$10.99",
+          rating: 4.3,
+          category: "cards",
+          image: "images/card8.jpg",
+          description: "Classic Snakes & Ladders game for family fun...",
+          features: ["2-6 players", "Bright design", "Dice included", "Foldable board", "Ages 4+"]
+        },
+        {
+          id: 9,
+          name: "Rubik's Cube",
+          price: "$11.99",
+          rating: 4.7,
+          category: "games",
+          image: "images/card9.jpg",
+          description: "3x3 Rubik's Cube puzzle that challenges your mind...",
+          features: ["Smooth rotation", "Stickerless design", "Durable", "Compact size", "Ages 6+"]
+        },
+        {
+          id: 10,
+          name: "Jenga",
+          price: "$15.99",
+          rating: 4.5,
+          category: "games",
+          image: "images/card10.jpg",
+          description: "Classic Jenga wooden block stacking game...",
+          features: ["54 wooden blocks", "Smooth finish", "Fun for parties", "Family game", "Ages 6+"]
+        },
+
+        {
+          id: 11,
+          name: "Board Game",
+          price: "$22.99",
+          rating: 4.7,
+          category: "cards",
+          image: "images/card11.jpg",
+          description: "Fun and engaging board game...",
+          features: ["2-4 players", "30-45 min", "Ages 8+", "Quality pieces", "Easy rules"]
+        },
+        {
+          id: 12,
+          name: "Card Game Set",
+          price: "$14.99",
+          rating: 4.3,
+          category: "cards",
+          image: "images/card12.webp",
+          description: "Exciting card game set...",
+          features: ["3 games", "2-6 players", "Ages 6+", "Compact", "Durable"]
+        },
+        {
+          id: 13,
+          name: "Video Game",
+          price: "$49.99",
+          rating: 4.9,
+          category: "games",
+          image: "images/card13.avif",
+          description: "Adventure-filled video game...",
+          features: ["Everyone rating", "20+ hrs", "Multiplayer", "Puzzles", "Consoles"]
+        },
+        {
+          id: 14,
+          name: "Puzzle Game",
+          price: "$19.99",
+          rating: 4.5,
+          category: "games",
+          image: "images/card14.webp",
+          description: "Brain-teasing puzzle game...",
+          features: ["100+ puzzles", "Levels", "Hints", "Tracking", "Ages 7+"]
+        },
+        {
+          id: 15,
+          name: "Strategy Game",
+          price: "$29.99",
+          rating: 4.6,
+          category: "games",
+          image: "images/card15.jpg",
+          description: "Deep strategy game...",
+          features: ["2-4 players", "60-90 min", "Ages 10+", "Quality", "Expansions"]
+        },
+        {
+          id: 16,
+          name: "Princess Doll",
+          price: "$24.99",
+          rating: 4.8,
+          category: "dolls",
+          image: "images/card16.jpg",
+          description: "Beautiful princess doll...",
+          features: ["12 inches", "Hair", "Outfit", "Accessories", "Ages 3+"]
+        },
+        {
+          id: 17,
+          name: "Action Figure",
+          price: "$19.99",
+          rating: 4.5,
+          category: "dolls",
+          image: "images/card17.webp",
+          description: "Articulated action figure...",
+          features: ["6 inches", "20 joints", "Accessories", "Collectible", "Ages 4+"]
+        },
+        {
+          id: 18,
+          name: "Baby Doll",
+          price: "$29.99",
+          rating: 4.7,
+          category: "dolls",
+          image: "images/card18.jpg",
+          description: "Lifelike baby doll...",
+          features: ["15 inches", "Soft body", "Realistic", "Bottle", "Ages 2+"]
+        },
+        {
+          id: 19,
+          name: "Doll House",
+          price: "$49.99",
+          rating: 4.9,
+          category: "dolls",
+          image: "images/card19.jpg",
+          description: "Beautifully detailed doll house...",
+          features: ["3 stories", "15 furniture", "Lights", "Foldable", "Ages 3+"]
+        },
+        {
+          id: 20,
+          name: "Doll Accessories",
+          price: "$14.99",
+          rating: 4.3,
+          category: "dolls",
+          image: "images/card20.jpg",
+          description: "Complete set of doll accessories...",
+          features: ["20+ pieces", "12-inch dolls", "Case", "Mix outfits", "Ages 3+"]
+        },
+        {
+          id: 21,
+          name: "Science Kit",
+          price: "$34.99",
+          rating: 4.7,
+          category: "educational",
+          image: "images/card21.jpg",
+          description: "Exciting science kit...",
+          features: ["20+ experiments", "Materials", "Manual", "STEM", "Ages 8+"]
+        },
+        {
+          id: 22,
+          name: "ABC Learning Set",
+          price: "$19.99",
+          rating: 4.5,
+          category: "educational",
+          image: "images/card22.jpg",
+          description: "Comprehensive ABC set...",
+          features: ["52 letters", "20 numbers", "30 pics", "Guide", "Ages 3+"]
+        },
+        {
+          id: 23,
+          name: "Math Game",
+          price: "$24.99",
+          rating: 4.6,
+          category: "educational",
+          image: "images/card23.jpg",
+          description: "Fun math game...",
+          features: ["2-4 players", "Levels", "Ages 5+", "Curriculum", "Tracking"]
+        },
+        {
+          id: 24,
+          name: "Art Supplies",
+          price: "$29.99",
+          rating: 4.8,
+          category: "educational",
+          image: "images/card24.jpg",
+          description: "Complete art supplies...",
+          features: ["50+ pieces", "Non-toxic", "Washable", "Case", "Ages 4+"]
+        },
+        {
+          id: 25,
+          name: "Reading Books",
+          price: "$14.99",
+          rating: 4.4,
+          category: "educational",
+          image: "images/card25.jpg",
+          description: "Set of engaging reading books...",
+          features: ["10 books", "Levels", "Illustrations", "Questions", "Ages 4-8"]
+        },
+       {
+  id: 26,
+  name: "Kids Bicycle",
+  price: "$79.99",
+  rating: 4.7,
+  category: "toys",        
+           
+  image: "images/card26.jpg",
+  description: "High-quality bicycle...",
+  features: ["12-inch wheels", "Training wheels", "Adjustable", "Brake", "Ages 3-5"]
+}
+,
+        {
+          id: 27,
+          name: "Soccer Ball",
+          price: "$19.99",
+          rating: 4.5,
+          category: "games",
+          image: "images/card27.webp",
+          description: "Official soccer ball...",
+          features: ["Size 3", "Stitched", "Butyl bladder", "Play", "Ages 6+"]
+        },
+        {
+          id: 28,
+          name: "Swing Set",
+          price: "$149.99",
+          rating: 4.8,
+          category: "toys",
+          image: "images/card28.jpg",
+          description: "Backyard swing set...",
+          features: ["2 swings", "Slide", "Climbing wall", "Residential", "Ages 3-10"]
+        },
+        {
+          id: 29,
+          name: "Play Tent",
+          price: "$39.99",
+          rating: 4.6,
+          category: "toys",
+          image: "images/card29.jpg",
+          description: "Colorful play tent...",
+          features: ["Spacious", "Mesh windows", "Waterproof", "Case", "Ages 3+"]
+        },
+        {
+          id: 30,
+          name: "Water Gun",
+          price: "$14.99",
+          rating: 4.3,
+          category: "toys",
+          image: "images/card30.jpg",
+          description: "High-powered water gun...",
+          features: ["30 oz", "30 feet", "Easy-fill", "No pump", "Ages 5+"]
+        }
+      ];
+
+      // Functions
+      function generateStars(rating) {
+        let stars = '';
+        for (let i = 0; i < Math.floor(rating); i++) stars += '<i class="fas fa-star text-warning"></i>';
+        if (rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt text-warning"></i>';
+        for (let i = Math.ceil(rating); i < 5; i++) stars += '<i class="far fa-star text-warning"></i>';
+        return stars;
+      }
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        $("#cart-count").text(count);
+      }
+      function showToast(msg) {
+        const toast = $(`<div class="notification">${msg}</div>`);
+        $("body").append(toast);
+        setTimeout(() => toast.addClass("show"), 100);
+        setTimeout(() => { toast.removeClass("show"); setTimeout(() => toast.remove(), 300) }, 3000);
+      }
+
+      // Load product by id
+      const pid = parseInt(new URLSearchParams(window.location.search).get("id"));
+      const product = products.find(p => p.id === pid);
+      if (product) {
+        $("#productImage").attr("src", product.image).attr("alt", product.name);
+        $("#productTitle").text(product.name);
+        $("#productPrice").text(product.price);
+        $("#productRating").html(generateStars(product.rating) + " " + product.rating);
+        $("#productDescription").text(product.description);
+        product.features.forEach(f => $("#productFeatures").append(`<li>${f}</li>`));
+
+        // Related products
+        const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+        related.forEach(r => {
+          $("#relatedProductsContainer").append(`
+            <div class="col-md-3 mb-3">
+              <div class="related-product-card p-2" data-id="${r.id}">
+                <img src="${r.image}" class="w-100" style="height:160px;object-fit:cover;">
+                <h6 class="mt-2">${r.name}</h6>
+                <p class="fw-bold text-danger">${r.price}</p>
+              </div>
+            </div>
+          `);
+        });
+      } else {
+        $("#productTitle").text("Product Not Found");
+      }
+
+      // Quantity
+      // Quantity
+      $("#decreaseQuantity").click(() => {
+        let q = +$("#quantity").val();
+        if (q > 1) $("#quantity").val(q - 1);
+      });
+      $("#increaseQuantity").click(() => {
+        let q = +$("#quantity").val();
+        if (q < 10) $("#quantity").val(q + 1);
+      });
+
+      // Add to cart
+      $("#addToCartBtn").click(() => {
+        if (!product) return;
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const existing = cart.find(i => i.id === product.id);
+        const qty = parseInt($("#quantity").val());
+
+        if (existing) {
+          existing.quantity += qty;
+        } else {
+          cart.push({
+            ...product,
+            price: parseFloat(product.price.toString().replace('$', '')), // ✅ price as number
+            quantity: qty
+          });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        showToast(`${product.name} (${qty}) added to cart!`);
+      });
+
+      // Buy now
+      $("#buyNowBtn").click(() => {
+        if (!product) return;
+        const qty = $("#quantity").val();
+        showToast(`Proceeding to checkout with ${qty} ${product.name}(s)!`);
+      });
+
+      // Related product click
+      $(document).on("click", ".related-product-card", function () {
+        const rid = $(this).data("id");
+        window.location.href = `detail.html?id=${rid}`;
+      });
+
+      // Init
+      updateCartCount();
+      $("#searchToggle").on("click", function () {
+        $("#searchInput").toggleClass("active").focus();
+      });
+      $("#searchInput").on("keyup", function () {
+        const q = $(this).val().toLowerCase();
+        $(".product-card").each(function () {
+          const name = $(this).find(".product-title").text().toLowerCase();
+          $(this).toggle(name.includes(q));
+        });
+      });
+
+    });
+  </script>
+</body>
+
+</html>

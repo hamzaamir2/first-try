@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ToyoToys</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #FF1744;
+            /* Bright Red */
+            --secondary-color: #00E676;
+            /* Bright Green */
+            --accent-color: #FFD600;
+            /* Bright Yellow */
+            --tertiary-color: #00B0FF;
+            /* Bright Blue */
+            --dark-color: #212121;
+            /* Very Dark Gray */
+            --light-color: #FFFFFF;
+            /* White */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles - Exact from provided code */
+        .navbar {
+            background-color: var(--light-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 2.2rem;
+            color: var(--primary-color) !important;
+            text-shadow: 2px 2px 0 var(--accent-color);
+        }
+
+        .navbar-brand img {
+            height: 70px;
+            /* Increased logo size */
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.1);
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--dark-color) !important;
+            margin: 0 10px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            position: relative
+        }
+
+        .search-input {
+            border-radius: 25px;
+            padding-left: 15px;
+            border: 1px solid #ddd;
+            transition: width .4s ease, opacity .3s ease;
+            width: 0;
+            opacity: 0;
+            visibility: hidden
+        }
+
+        .search-input.active {
+            width: 200px;
+            opacity: 1;
+            visibility: visible;
+            padding: 5px 15px;
+            margin-right: 10px
+        }
+
+        .search-icon {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: color .3s, transform .2s;
+            display: flex;
+            align-items: center
+        }
+
+        .search-icon:hover {
+            color: var(--primary-color);
+            transform: scale(1.1)
+        }
+
+        /* Cart Icon Styles - Exact from provided code */
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            transition: all 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* About Us Hero Section */
+        .about-hero {
+            background: linear-gradient(135deg, rgba(255, 23, 68, 0.9), rgba(255, 214, 0, 0.9)), url('https://picsum.photos/seed/toystore/1920/600.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        .about-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .about-hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFFFFF 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+        }
+
+        .story-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .story-text {
+            padding-right: 30px;
+        }
+
+        .story-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .story-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 5px solid white;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Mission & Values Section */
+        .mission-section {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .mission-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .mission-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .mission-card h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission-card h3 i {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            color: var(--accent-color);
+        }
+
+        .mission-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .values-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .value-item {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .value-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .value-item h4 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .value-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #E1F5FE 0%, #FFFFFF 100%);
+        }
+
+        .team-member {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .member-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+        }
+
+        .team-member:hover .member-image {
+            border-color: var(--tertiary-color);
+            transform: scale(1.05);
+        }
+
+        .member-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .member-info p {
+            color: var(--tertiary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            color: var(--tertiary-color);
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-links a:hover {
+            background-color: var(--tertiary-color);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--light-color);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover::after {
+            border-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .timeline-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/seed/pattern/1920/800.jpg');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cta {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            border-radius: 30px;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.15);
+            background-color: var(--accent-color);
+        }
+
+        /* Footer - Exact from provided code */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--tertiary-color) 100%);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            margin-top: 25px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            transition: all 0.3s;
+            font-size: 1.3rem;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 30px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .about-hero p {
+                font-size: 1.2rem;
+            }
+
+            .story-content {
+                flex-direction: column;
+            }
+
+            .story-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .value-item {
+                width: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                height: 400px;
+            }
+
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .about-hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+
+            .left::after,
+            .right::after {
+                left: 20px;
+            }
+
+            .right {
+                left: 0%;
+            }
+
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .cta-section p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
+
+            .navbar-brand img {
+                height: 50px;
+            }
+
+            .about-hero {
+                height: 350px;
+                border-radius: 10px;
+            }
+
+            .about-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .about-hero p {
+                font-size: 0.9rem;
+            }
+
+            .value-item {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto 20px;
+            }
+
+            .btn-cta {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Accessibility: Focus styles */
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease-out;
+            font-weight: 600;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header/Navigation - Exact from provided code -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="/images/Logo.png" alt="ToyoToys Logo" />ToyoToys
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="category.html?cat=toys">Toys</a></li>
+                                <li><a class="dropdown-item" href="category.html?cat=games">Games</a></li>
+                                <li><a class="dropdown-item" href="category.html?cat=dolls">Dolls</a></li>
+                                <li><a class="dropdown-item" href="category.html?cat=educational">Educational</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="brandDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Brands</a>
+                            <ul class="dropdown-menu" aria-labelledby="brandDropdown">
+                                <li><a class="dropdown-item" href="category.html?brand=Mattel">Mattel</a></li>
+                                <li><a class="dropdown-item" href="category.html?brand=Lego">Lego</a></li>
+                                <li><a class="dropdown-item" href="category.html?brand=Hasbro">Hasbro</a></li>
+                                <li><a class="dropdown-item" href="category.html?brand=Barbie">Barbie</a></li>
+                                
+                                <li><a class="dropdown-item" href="category.html?brand=Hot Wheels">Hot Wheels</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ageDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Age</a>
+                            <ul class="dropdown-menu" aria-labelledby="ageDropdown">
+                                <li><a class="dropdown-item" href="category.html?age=2-4 yrs">2-4 yrs</a></li>
+                                <li><a class="dropdown-item" href="category.html?age=5-7 yrs">5-7 yrs</a></li>
+                                <li><a class="dropdown-item" href="category.html?age=8-12 yrs">8-12 yrs</a></li>
+                                <li><a class="dropdown-item" href="category.html?age=12+ yrs">12+ yrs</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="compare.html">Compare</a>
+                        </li>
+
+                        <div class="d-flex align-items-center ms-3">
+                            <div class="search-container me-3">
+                                <input type="text" class="form-control search-input" placeholder="Search toys..."
+                                    id="searchInput" />
+                                <i class="fas fa-magnifying-glass search-icon" id="searchToggle"
+                                    aria-label="Toggle Search"></i>
+                            </div>
+
+                            <a class="nav-link position-relative" href="cart.html" aria-label="Shopping Cart">
+                                <i class="fas fa-shopping-cart cart-icon"></i>
+                                <span class="cart-count" id="cart-count">0</span>
+                            </a>
+                        </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- About Us Hero Section -->
+        <section class="about-hero container">
+            <div class="about-hero-content">
+                <h1>About ToyoToys</h1>
+                <p>Creating magical moments and happy memories through the power of play</p>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section class="story-section">
+            <div class="container">
+                <h2 class="section-title">Our Story</h2>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="story-content">
+                            <div class="story-text">
+                                <h3>How It All Began</h3>
+                                <p>ToyoToys was founded in 2010 by parents Sarah and Michael Johnson, who were
+                                    frustrated with the lack of high-quality, safe, and educational toys on the market.
+                                    As parents of three young children, they understood firsthand the importance of play
+                                    in a child's development.</p>
+                                <p>What started as a small online store operating from their garage has now grown into a
+                                    beloved brand with multiple retail locations across the country and a thriving
+                                    e-commerce platform serving families worldwide.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="story-image">
+                            <img src="https://picsum.photos/seed/founders/600/400.jpg" alt="ToyoToys Founders">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="story-content">
+                            <div class="story-text">
+                                <h3>Our Growth Journey</h3>
+                                <p>Over the years, ToyoToys has expanded its product range from just 50 items to over
+                                    2,000 carefully curated toys, games, and educational products. We've built
+                                    partnerships with over 200 toy manufacturers who share our commitment to quality,
+                                    safety, and sustainability.</p>
+                                <p>In 2018, we launched our innovative "Toy Box Subscription" service, which delivers
+                                    age-appropriate toys to families every month, helping children discover new
+                                    interests and skills through play.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="story-image">
+                            <img src="https://picsum.photos/seed/store/600/400.jpg" alt="ToyoToys Store">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Values Section -->
+        <section class="mission-section">
+            <div class="container">
+                <h2 class="section-title">Our Mission & Values</h2>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mission-card">
+                            <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                            <p>To provide children with high-quality, safe, and educational toys that inspire
+                                creativity, foster development, and create joyful memories. We believe in the power of
+                                play to shape young minds and build a foundation for lifelong learning.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mission-card">
+                            <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                            <p>To become the world's most trusted and beloved toy brand, known for our commitment to
+                                quality, innovation, and child development. We envision a future where every child has
+                                access to toys that nurture their unique talents and interests.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="values-container">
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Safety First</h4>
+                        <p>All our products meet or exceed the highest safety standards, ensuring peace of mind for
+                            parents.</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>Sustainability</h4>
+                        <p>We're committed to eco-friendly practices and sustainable materials in our products and
+                            packaging.</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>Educational Value</h4>
+                        <p>We carefully select toys that promote learning, creativity, and developmental skills.</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Passion for Play</h4>
+                        <p>We believe in the transformative power of play and its essential role in childhood.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="container">
+                <h2 class="section-title">Meet Our Team</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-member">
+                            <div class="member-image">
+                                <img src="https://picsum.photos/seed/sarah/400/400.jpg" alt="Sarah Johnson">
+                            </div>
+                            <div class="member-info">
+                                <h3>Eshan bari</h3>
+                                <p>CEO & Co-Founder</p>
+                                <div class="social-links">
+                                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-member">
+                            <div class="member-image">
+                                <img src="images/WhatsApp Image 2025-09-04 at 3.16.15 PM (1).jpeg"
+                                    alt="Michael Johnson">
+                            </div>
+                            <div class="member-info">
+                                <h3>Hamza amir</h3>
+                                <p>President & Co-Founder</p>
+                                <div class="social-links">
+                                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-member">
+                            <div class="member-image">
+                                <img src="https://picsum.photos/seed/david/400/400.jpg" alt="Jennifer Chen">
+                            </div>
+                            <div class="member-info">
+                                <h3>Talha</h3>
+                                <p>Chief Product Officer</p>
+                                <div class="social-links">
+                                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-member">
+                            <div class="member-image">
+                                <img src="images/WhatsApp Image 2025-09-04 at 3.19.05 PM.jpeg" alt="David Rodriguez">
+                            </div>
+                            <div class="member-info">
+                                <h3>Mahad</h3>
+                                <p>Chief Marketing Officer</p>
+                                <div class="social-links">
+                                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="container">
+                <h2 class="section-title">Our Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2010</div>
+                            <h3>Company Founded</h3>
+                            <p>Eeshan,Talha,Hamza Mahad launch ToyoToys from the road with just 50 carefully selected
+                                products.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2012</div>
+                            <h3>First Retail Store</h3>
+                            <p>We open our first brick-and-mortar store in San Francisco, bringing our curated toy
+                                collection to local families.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2015</div>
+                            <h3>National Expansion</h3>
+                            <p>ToyoToys expands to 10 retail locations across the United States, with our e-commerce
+                                platform reaching all 50 states.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2018</div>
+                            <h3>Toy Box Subscription Launch</h3>
+                            <p>We introduce our innovative subscription service, delivering age-appropriate toys to
+                                thousands of families monthly.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2020</div>
+                            <h3>International Growth</h3>
+                            <p>Despite global challenges, we expand to Canada, the UK, and Australia, bringing joy to
+                                children worldwide.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023</div>
+                            <h3>Sustainability Initiative</h3>
+                            <p>We launch our comprehensive eco-friendly program, committing to 100% sustainable
+                                packaging by 2025.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Join the ToyoToys Family</h2>
+                    <p>Subscribe to our newsletter and be the first to know about new products, exclusive deals, and
+                        special events!</p>
+                    <button class="btn btn-cta" id="subscribe-btn">Subscribe Now</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Exact from provided code -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-logo">ToyoToys</div>
+                    <p>Your one-stop shop for magical toys that inspire creativity and bring joy to children everywhere.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Legal</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ToyoToys. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        $(document).ready(function () {
+            // Initialize cart count
+            let cartCount = 0;
+
+            // Cart icon click functionality
+            $('.cart-icon').on('click', function (e) {
+                e.preventDefault();
+                window.location.href = 'cart.html';
+            });
+
+            // Smooth scrolling for anchor links
+            $('a[href^="#"]').on('click', function (e) {
+                e.preventDefault();
+                const target = $($(this).attr('href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 70
+                    }, 500);
+                }
+            });
+
+            // Subscribe button functionality
+            $('#subscribe-btn').on('click', function () {
+                // Create a notification element
+                const notification = $('<div class="notification">Thank you for subscribing to our newsletter!</div>');
+                $('body').append(notification);
+
+                // Show the notification
+                setTimeout(function () {
+                    notification.addClass('show');
+                }, 100);
+
+                // Hide the notification after 3 seconds
+                setTimeout(function () {
+                    notification.removeClass('show');
+                    setTimeout(function () {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            });
+
+            // Add animation to elements when they come into view
+            function animateOnScroll() {
+                $('.timeline-item, .value-item, .team-member, .mission-card').each(function () {
+                    var elementPos = $(this).offset().top;
+                    var topOfWindow = $(window).scrollTop();
+                    var windowHeight = $(window).height();
+
+                    if (elementPos < topOfWindow + windowHeight - 100) {
+                        $(this).addClass('animate');
+                    }
+                });
+            }
+
+            // Run animation check on scroll
+            $(window).scroll(function () {
+                animateOnScroll();
+            });
+
+            // Run animation check on page load
+            animateOnScroll();
+            $("#searchToggle").on("click", function () {
+                $("#searchInput").toggleClass("active").focus();
+            });
+            $("#searchInput").on("keyup", function () {
+                const q = $(this).val().toLowerCase();
+                $(".product-card").each(function () {
+                    const name = $(this).find(".product-title").text().toLowerCase();
+                    $(this).toggle(name.includes(q));
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
